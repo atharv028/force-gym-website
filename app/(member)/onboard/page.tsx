@@ -41,10 +41,13 @@ function OnboardForm() {
             lng: pos.coords.longitude,
           }),
         });
-        const data = (await res.json()) as { error?: string };
+        const data = (await res.json()) as { error?: string; testOtp?: string };
         setPhase("idle");
         if (!res.ok) return setError(data.error ?? "Failed to send OTP");
-        router.push(`/verify?phone=${encodeURIComponent(phone)}&next=${encodeURIComponent(next)}`);
+        const testOtpParam = data.testOtp ? `&testOtp=${encodeURIComponent(data.testOtp)}` : "";
+        router.push(
+          `/verify?phone=${encodeURIComponent(phone)}&next=${encodeURIComponent(next)}${testOtpParam}`,
+        );
       },
       () => {
         setPhase("idle");

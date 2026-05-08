@@ -57,7 +57,10 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: result.error ?? "Failed to send OTP", code: "OTP_SEND_FAILED" }, { status: 429 });
     }
 
-    return NextResponse.json({ success: true });
+    return NextResponse.json({
+      success: true,
+      ...(result.code ? { testOtp: result.code } : {}),
+    });
   } catch {
     return NextResponse.json({ error: "Unexpected error", code: "INTERNAL_ERROR" }, { status: 500 });
   }

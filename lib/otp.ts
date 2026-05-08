@@ -13,7 +13,9 @@ export function generateOtpCode(): string {
   return String(Math.floor(100000 + Math.random() * 900000));
 }
 
-export async function createAndSendOtp(phone: string): Promise<{ ok: boolean; error?: string }> {
+export async function createAndSendOtp(
+  phone: string,
+): Promise<{ ok: boolean; error?: string; code?: string }> {
   const supabase = createServiceSupabaseClient();
 
   const oneHourAgo = new Date(Date.now() - 60 * 60 * 1000).toISOString();
@@ -44,7 +46,7 @@ export async function createAndSendOtp(phone: string): Promise<{ ok: boolean; er
     return { ok: false, error: wa.error ?? "WhatsApp delivery failed." };
   }
 
-  return { ok: true };
+  return { ok: true, code };
 }
 
 export async function verifyOtpCode(phone: string, code: string): Promise<{ ok: boolean; error?: string }> {
