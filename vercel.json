@@ -1,0 +1,8 @@
+{
+  "crons": [
+    { "path": "/api/cron/close-open-sessions", "schedule": "0 18 * * *" },
+    { "path": "/api/cron/daily-digest", "schedule": "30 15 * * *" },
+    { "path": "/api/cron/inactivity-check", "schedule": "30 14 * * *" },
+    { "path": "/api/cron/weekly-summary", "schedule": "30 13 * * 0" }
+  ]
+}
