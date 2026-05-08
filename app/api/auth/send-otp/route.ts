@@ -54,7 +54,10 @@ export async function POST(req: Request) {
 
     const result = await createAndSendOtp(normalized);
     if (!result.ok) {
-      return NextResponse.json({ error: result.error ?? "Failed to send OTP", code: "OTP_SEND_FAILED" }, { status: 429 });
+      return NextResponse.json(
+        { error: result.error ?? "Failed to send OTP", code: "OTP_SEND_FAILED" },
+        { status: 500 },
+      );
     }
 
     return NextResponse.json({

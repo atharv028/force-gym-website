@@ -25,10 +25,6 @@ export async function createAndSendOtp(
     .eq("phone", phone)
     .gte("created_at", oneHourAgo);
 
-  // if ((count ?? 0) >= 3) {
-  //   return { ok: false, error: "Too many OTP requests. Try again later." };
-  // }
-
   const code = generateOtpCode();
   console.log("code", code);
   const codeHash = await bcrypt.hash(code, 12);
@@ -66,13 +62,8 @@ export async function verifyOtpCode(phone: string, code: string): Promise<{ ok: 
   if (new Date(otp.expires_at).getTime() < Date.now()) {
     return { ok: false, error: "OTP expired." };
   }
-  if ((otp.attempts ?? 0) >= 3) {
-    return { ok: false, error: "Too many attempts." };
-  }
-
   const matched = await bcrypt.compare(code, String(otp.code_hash));
   if (!matched) {
-    await supabase.from("otps").update({ attempts: (otp.attempts ?? 0) + 1 }).eq("id", otp.id);
     return { ok: false, error: "Invalid OTP." };
   }
 
