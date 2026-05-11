@@ -37,7 +37,7 @@ export async function createAndSendOtp(
     return { ok: false, error: "Could not create OTP." };
   }
 
-  const wa = await sendTemplate(phone, "hello_world", []);
+  const wa = await sendTemplate(phone, "gym_otp_2", [code], ["Login"]);
   if (!wa.success) {
     return { ok: false, error: wa.error ?? "WhatsApp delivery failed." };
   }
