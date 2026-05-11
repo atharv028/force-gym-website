@@ -13,7 +13,6 @@ function VerifyForm() {
   const params = useSearchParams();
   const phone = params.get("phone") ?? "";
   const next = params.get("next") ?? "/scan";
-  const testOtp = params.get("testOtp") ?? "";
   const router = useRouter();
 
   async function handleVerify(e: React.FormEvent) {
@@ -73,11 +72,6 @@ function VerifyForm() {
             <span className="font-medium text-slate-200">{maskedPhone}</span>
           </p>
           <p className="mt-0.5 text-xs text-slate-500">for {FORCE_ONE_FITNESS.name}</p>
-          {testOtp ? (
-            <div className="mt-3 rounded-xl border border-amber-500/30 bg-amber-500/10 px-3 py-2 text-sm text-amber-200">
-              Test OTP: <span className="font-barlow-condensed text-base font-semibold tracking-widest">{testOtp}</span>
-            </div>
-          ) : null}
 
           <form className="mt-6 space-y-4" onSubmit={handleVerify}>
             <div>

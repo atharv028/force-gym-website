@@ -60,12 +60,8 @@ export async function POST(req: Request) {
       );
     }
 
-    return NextResponse.json({
-      success: true,
-      ...(result.code ? { testOtp: result.code } : {}),
-    });
-  } catch (error) {
-    console.error("Unexpected error in send-otp route", error);
+    return NextResponse.json({ success: true });
+  } catch {
     return NextResponse.json({ error: "Unexpected error", code: "INTERNAL_ERROR" }, { status: 500 });
   }
 }
