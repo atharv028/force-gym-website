@@ -35,7 +35,7 @@ export async function POST(req: Request) {
         rejected: true,
         rejection_reason: "OUTSIDE_ALLOWED_RADIUS",
       });
-      return NextResponse.json({ error: "Outside allowed radius", code: "OUTSIDE_RADIUS" }, { status: 403 });
+      return NextResponse.json({ error: "You are outside the allowed radius. Please move inside the gym to check in.", code: "OUTSIDE_RADIUS" }, { status: 403 });
     }
 
     const today = getAttendanceDateForConfig(new Date(), config.closing_hour);
